@@ -93,13 +93,11 @@ ${chunks.join('\n---\n')}
     const genAI = getGenAI();
     const model = genAI.getGenerativeModel({
       model: 'gemini-1.5-flash',
+      systemInstruction: systemPrompt,
     });
 
     // Execute Generation
-    const result = await model.generateContent([
-      { role: 'system', parts: [{ text: systemPrompt }] },
-      { role: 'user', parts: [{ text: message }] },
-    ]);
+    const result = await model.generateContent(message);
 
     const responseText = result.response?.text() ?? 'I am here to assist you with Reaus Spa bookings and services.';
 

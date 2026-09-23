@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import path from 'path';
-import type { BookingPayload } from '@/lib/types';
+import type { BookingPayload, Appointment } from '@/lib/types';
 import { addAppointment, getAppointments } from '@/lib/googleSheets';
 import { postToWebhook } from '@/lib/makeWebhook';
 
@@ -34,7 +34,7 @@ export async function checkAvailability(service: string, datetime?: string): Pro
   try {
     const appointments = await getAppointments();
     if (datetime) {
-      const booked = appointments.some(app => app.requested_time === datetime && app.status !== 'cancelled');
+      const booked = appointments.some(app => app.slot === datetime && app.status !== 'cancelled');
       if (booked) {
         return { available: false, message: `The time slot ${datetime} is already booked for ${service}.` };
       }
@@ -52,7 +52,17 @@ export async function checkAvailability(service: string, datetime?: string): Pro
  * Re-uses Google Sheets helper and triggers Make.com webhook.
  */
 export async function createBooking(payload: BookingPayload): Promise<{ booking_id: string; status: string }> {
-  const bookingId = await addAppointment(payload);
+  const bookingId = 'bk_' + Math.random().toString(36).substring(2, 9);
+  const appointment: Appointment = {
+    appointment_id: bookingId,
+    slot: payload.slot,
+    service: payload.service,
+    client_name: payload.client_name,
+    notes: payload.notes ?? '',
+    status: 'confirmed',
+  };
+
+  await addAppointment(appointment);
   const webhookUrl = process.env.MAKE_NEW_BOOKING_WEBHOOK_URL ?? '';
 
   if (webhookUrl) {

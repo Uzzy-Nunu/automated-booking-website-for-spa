@@ -4,6 +4,7 @@ export interface Appointment {
   service: string;
   client_name: string;
   notes?: string;
+  status?: string;
 }
 
 export interface AvailabilitySlot {
@@ -11,7 +12,7 @@ export interface AvailabilitySlot {
   end: string;   // ISO datetime string
   service: string;
 }
-// Payload sent from the booking page to the booking API
+
 export interface BookingPayload {
   slot: string;
   service: string;
@@ -19,8 +20,26 @@ export interface BookingPayload {
   notes?: string;
 }
 
-// Response returned by the booking API
 export interface BookingResponse {
   booking_id: string;
   success: boolean;
+}
+
+export interface Service {
+  service_name: string;
+  name: string;
+  category: string;
+  price: number;
+  duration_minutes?: number;
+  image?: string;
+}
+
+export interface ChatPayload {
+  session_id: string;
+  message: string;
+}
+
+export interface ChatResponse {
+  session_id: string;
+  answer: string;
 }

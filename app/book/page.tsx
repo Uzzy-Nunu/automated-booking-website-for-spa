@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 
 interface AvailabilitySlot { start: string; end: string; service: string; }
