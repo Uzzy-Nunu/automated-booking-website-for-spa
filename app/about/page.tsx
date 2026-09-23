@@ -14,7 +14,7 @@ export default function AboutPage() {
         <div className="bg-amber-100/50 p-8 rounded-2xl border border-amber-200">
           <h2 className="font-serif text-2xl mb-4 text-stone-900">Our Wellness Philosophy</h2>
           <p className="text-stone-700 text-sm leading-relaxed">
-            At Reaus Spa, we believe wellness is never a compromise. Our treatments combine holistic therapeutic traditions with modern aesthetic techniques, tailored specifically to your body's rhythm.
+            At Reaus Spa, we believe wellness is never a compromise. Our treatments combine holistic therapeutic traditions with modern aesthetic techniques, tailored specifically to your body&apos;s rhythm.
           </p>
         </div>
 

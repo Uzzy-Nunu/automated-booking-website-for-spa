@@ -8,8 +8,18 @@ interface Message {
 }
 
 export default function ChatWidget() {
+  const [sessionId] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      let sid = localStorage.getItem('reaus_chat_sid');
+      if (!sid) {
+        sid = 'sid_' + Math.random().toString(36).substring(2, 9);
+        localStorage.setItem('reaus_chat_sid', sid);
+      }
+      return sid;
+    }
+    return 'sid_default';
+  });
   const [isOpen, setIsOpen] = useState(false);
-  const [sessionId, setSessionId] = useState('');
   const [messages, setMessages] = useState<Message[]>([
     { sender: 'bot', text: 'Welcome to the best spa in Lagos! How may I help you today?' },
   ]);
@@ -17,16 +27,6 @@ export default function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const [fallback, setFallback] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Generate or fetch session ID
-    let sid = localStorage.getItem('reaus_chat_sid');
-    if (!sid) {
-      sid = 'sid_' + Math.random().toString(36).substring(2, 9);
-      localStorage.setItem('reaus_chat_sid', sid);
-    }
-    setSessionId(sid);
-  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
