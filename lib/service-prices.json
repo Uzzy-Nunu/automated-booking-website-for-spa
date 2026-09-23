@@ -1,0 +1,7 @@
+[
+  { "service_name": "Deep Tissue Massage", "category": "Massage", "price": 120, "duration_minutes": 60 },
+  { "service_name": "Classic Facial", "category": "Facial", "price": 80, "duration_minutes": 45 },
+  { "service_name": "Ayurvedic Body Treatment", "category": "Body", "price": 150, "duration_minutes": 90 },
+  { "service_name": "Hammam Ritual", "category": "Hammam", "price": 130, "duration_minutes": 75 },
+  { "service_name": "Waxing (Full)", "category": "Wax", "price": 70, "duration_minutes": 30 }
+]
